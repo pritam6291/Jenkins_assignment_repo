@@ -1,0 +1,34 @@
+pipeline{
+  agent any
+    environment{
+  notifyEmail = "pritamghosh6291@gmail.com"
+}
+  tools{
+    maven 'maven_home'
+  }
+  triggers{
+    cron('0 06 * * *')
+  }
+  stages{
+    stage("code checkout pipeline"){
+      steps{
+        bat "echo hi"
+      }
+    }
+    stage("code build pipeline"){
+      steps{
+        bat "mvn clean"
+      }
+    }
+    stage("unit test pipeline"){
+      steps{
+        bat "mvn test"
+      }
+    }
+}
+post{
+  success{
+    bat "echo passed"
+    }
+  }
+}
